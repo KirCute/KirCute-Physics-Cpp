@@ -4,6 +4,8 @@ project("KirCute-Physics-Cpp")
 
 include_directories(
         include
+        include/KirCute-Physics-Cpp
+        include/Easyx
 )
 
 add_library(kircute_physics
@@ -20,23 +22,17 @@ add_library(kircute_physics
         )
 
 add_library(easyx_renderer
-        include/KirCute-Physics-Cpp/render.h
         include/KirCute-Physics-Cpp/easyx_renderer.h
-
         src/easyx_renderer.cpp
         )
 
 add_library(quadtree_store
-        include/KirCute-Physics-Cpp/store.h
         include/KirCute-Physics-Cpp/quadtree_store.h
-
         src/quadtree_store.cpp
         )
 
 add_library(vector_store
-        include/KirCute-Physics-Cpp/store.h
         include/KirCute-Physics-Cpp/vector_store.h
-
         src/vector_store.cpp
         )
 

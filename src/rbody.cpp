@@ -1,4 +1,4 @@
-#include "../include/KirCute-Physics-Cpp/rbody.h"
+#include "rbody.h"
 
 using namespace kircute_physics;
 

@@ -1,4 +1,4 @@
-#include "../include/KirCute-Physics-Cpp/vector_store.h"
+#include "vector_store.h"
 
 using namespace kircute_physics;
 

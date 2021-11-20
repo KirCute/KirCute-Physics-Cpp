@@ -2,7 +2,7 @@
 #define KIRCUTE_PHYSICS_CPP_EASYX_H
 
 #include "render.h"
-#include "Easyx/graphics.h"
+#include <graphics.h>
 
 namespace kircute_physics {
     class EasyxRenderer : public Renderer {

@@ -1,5 +1,5 @@
-#include "../include/KirCute-Physics-Cpp/world.h"
-#include "../include/KirCute-Physics-Cpp/quadtree_store.h"
+#include "world.h"
+#include "quadtree_store.h"
 #include <iostream>
 #include <cfloat>
 

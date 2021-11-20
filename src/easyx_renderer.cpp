@@ -1,4 +1,4 @@
-#include "../include/KirCute-Physics-Cpp/easyx_renderer.h"
+#include "easyx_renderer.h"
 #include <conio.h>
 
 using namespace kircute_physics;

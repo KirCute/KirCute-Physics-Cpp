@@ -1,4 +1,4 @@
-#include "../include/KirCute-Physics-Cpp/quadtree_store.h"
+#include "quadtree_store.h"
 
 using namespace kircute_physics;
 

@@ -1,12 +1,12 @@
-﻿#include "KirCute-Physics-Cpp/frame.h"
-#include "KirCute-Physics-Cpp/quadtree_store.h"
-#include "KirCute-Physics-Cpp/easyx_renderer.h"
+﻿#include "frame.h"
+#include "quadtree_store.h"
+#include "easyx_renderer.h"
 
 using namespace kircute_physics;
 
 class Demo : public Frame {
 public:
-    explicit Demo(Renderer *const &renderer) : Frame(renderer, new QuadtreeEntrance(50.0f)) {}
+    explicit Demo() : Frame(new EasyxRenderer(), new QuadtreeEntrance(50.0f)) {}
 
     void onInit() override {
         Branch::DrawBranchEdge = true;
@@ -25,7 +25,7 @@ public:
 };
 
 int main() {
-    auto frame = new Demo(new EasyxRenderer());
+    auto frame = new Demo();
     frame->start();
     delete frame;
     return 0;

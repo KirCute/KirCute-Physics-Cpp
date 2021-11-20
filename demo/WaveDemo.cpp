@@ -1,12 +1,12 @@
-#include "KirCute-Physics-Cpp/frame.h"
-#include "KirCute-Physics-Cpp/vector_store.h"
-#include "KirCute-Physics-Cpp/easyx_renderer.h"
+#include "frame.h"
+#include "vector_store.h"
+#include "easyx_renderer.h"
 
 using namespace kircute_physics;
 
 class Demo : public Frame {
 public:
-    explicit Demo(Renderer *const &renderer) : Frame(renderer, new VectorContainer(50.0f)) {}
+    explicit Demo() : Frame(new EasyxRenderer(), new VectorContainer(50.0f)) {}
 
     void onInit() override {
         world->enableCollide = false;
@@ -25,7 +25,7 @@ public:
 };
 
 int main(void) {
-    auto frame = new Demo(new EasyxRenderer());
+    auto frame = new Demo();
     frame->start();
     delete frame;
     return 0;
