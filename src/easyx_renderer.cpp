@@ -84,6 +84,7 @@ void EasyxRenderer::mouseHandle(const MouseEvent &evt) {
     msg.r_button_down = !lastMouseMsg.mkRButton && m.mkRButton;
     msg.wheel = m.wheel;
     evt(msg);
+    lastMouseMsg = m;
 }
 
 bool EasyxRenderer::isClosed() {
