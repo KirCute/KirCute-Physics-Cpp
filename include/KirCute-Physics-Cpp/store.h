@@ -28,6 +28,8 @@ namespace kircute_physics {
         virtual void render(Renderer *const &renderer) const = 0;
 
         Rect getRect() const { return range; }
+
+        float getValidRange() const { return validRange; }
     };
 }
 

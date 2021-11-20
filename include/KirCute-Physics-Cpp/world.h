@@ -27,6 +27,10 @@ namespace kircute_physics {
         void create(float mass, float radius, const Vec2f &pos, const Color &color = 0x7F7F7F);
 
         void addField(const ForceField &field);
+
+        Rect getRect() const { return objs->getRect(); }
+
+        float getValidRange() const { return objs->getValidRange(); }
     };
 }
 
