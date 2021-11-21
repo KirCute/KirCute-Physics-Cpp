@@ -35,9 +35,7 @@ void VectorContainer::update(const std::vector<ForceField> &fields) {
 void VectorContainer::collideCheck() {
     for (unsigned int a = 0; a < container.size(); a++) {
         for (unsigned int b = a + 1; b < container.size(); b++) {
-            if (Rigidbody::collide(container[a], container[b])) {
-                Rigidbody::solve(container[a], container[b]);
-            }
+            Rigidbody::collideCheck(container[a], container[b]);
         }
     }
 }

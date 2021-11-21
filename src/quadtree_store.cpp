@@ -79,18 +79,14 @@ bool Node::contains(const Rigidbody *const &rbody) {
 void Node::collideCheck() {
     for (unsigned int a = 0; a < storage.size(); a++) {
         for (unsigned int b = a + 1; b < storage.size(); b++) {
-            if (Rigidbody::collide(storage[a], storage[b])) {
-                Rigidbody::solve(storage[a], storage[b]);
-            }
+            Rigidbody::collideCheck(storage[a], storage[b]);
         }
     }
     for (auto rbody : storage) parent->collide(rbody);
 }
 
 void Node::collide(Rigidbody *const &rbody) {
-    for (auto itr : storage)
-        if (Rigidbody::collide(itr, rbody))
-            Rigidbody::solve(itr, rbody);
+    for (auto itr : storage) Rigidbody::collideCheck(itr, rbody);
     parent->collide(rbody);
 }
 

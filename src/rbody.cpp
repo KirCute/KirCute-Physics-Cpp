@@ -23,9 +23,11 @@ void Rigidbody::render(Renderer *const &renderer) const {
     if (DrawVelocity)
         renderer->drawLine((int) position.x, (int) position.y, (int) (position.x + velocity.x),
                            (int) (position.y + velocity.y), 0x00FF00);
+    onRender(this, renderer);
 }
 
 void Rigidbody::update() {
+    onRefresh(this);
     velocity += force;
     force.x = .0f, force.y = .0f;
     position += velocity;
@@ -55,6 +57,15 @@ void Rigidbody::solve(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB) {
     auto normalize = direction.normalize() * magnitude;
     rbodyA->position += normalize;
     rbodyB->position -= normalize;
+}
+
+void Rigidbody::collideCheck(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB) {
+    if (collide(rbodyA, rbodyB)) {
+        auto _solve = true;
+        for (auto trigger : rbodyA->triggers) _solve = _solve && trigger(rbodyB);
+        for (auto trigger : rbodyB->triggers) _solve = _solve && trigger(rbodyA);
+        if (_solve) solve(rbodyA, rbodyB);
+    }
 }
 
 void Rigidbody::rebound(Rigidbody *const &rbody, bool dir, float swift) {

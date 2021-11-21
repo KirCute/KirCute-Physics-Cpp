@@ -29,8 +29,10 @@ void World::render(Renderer *const &renderer) const {
     objs->render(renderer);
 }
 
-void World::create(float mass, float radius, const Vec2f &pos, const Color &color) {
-    objs->push_back(new Rigidbody(mass, radius, pos, color));
+Rigidbody* World::create(float mass, float radius, const Vec2f &pos, const Color &color) {
+    auto rbody = new Rigidbody(mass, radius, pos, color);
+    objs->push_back(rbody);
+    return rbody;
 }
 
 void World::addField(const ForceField &field) {

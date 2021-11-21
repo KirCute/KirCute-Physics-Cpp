@@ -8,7 +8,7 @@ EasyxRenderer::~EasyxRenderer() {
 }
 
 void EasyxRenderer::initalizeWindow(const Rect &rect) {
-    initgraph(rect.width, rect.height);
+    auto window = initgraph(rect.width, rect.height);
     BeginBatchDraw();
 }
 
@@ -67,7 +67,8 @@ void EasyxRenderer::clear() {
 }
 
 void EasyxRenderer::mouseHandle(const MouseEvent &evt) {
-    auto m = MouseHit() ? GetMouseMsg() : lastMouseMsg;
+    auto m = lastMouseMsg;
+    while (MouseHit()) m = GetMouseMsg();
     MouseMsg msg{};
     msg.ctrl = m.mkCtrl;
     msg.shift = m.mkShift;
