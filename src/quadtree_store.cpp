@@ -1,4 +1,5 @@
 #include "quadtree_store.h"
+#include <iostream>
 
 using namespace kircute_physics;
 
@@ -21,6 +22,7 @@ QuadtreeEntrance::QuadtreeEntrance(float validRange) : RigidbodyContainer(validR
 
 QuadtreeEntrance::~QuadtreeEntrance() {
     delete root;
+    std::cout << "Deleted Store." << std::endl;
 }
 
 void QuadtreeEntrance::collide(Rigidbody *const &rbody) {
@@ -34,6 +36,10 @@ void QuadtreeEntrance::insert(Rigidbody *const &rbody) {
 void QuadtreeEntrance::update(const std::vector<ForceField> &field) {
     root->update(field);
     root->refactor();
+}
+
+void QuadtreeEntrance::clear() {
+    root->clear();
 }
 
 NodeProxy::NodeProxy(Parent *const &parent, int layer, const Vec2f &start, const Vec2f &end) {
@@ -113,6 +119,11 @@ void Node::refactor() {
             itr = storage.erase(itr);
         } else itr++;
     }
+}
+
+void Node::clear() {
+    for (auto rbody : storage) delete rbody;
+    storage.clear();
 }
 
 Leaf::Leaf(Parent *const &parent, NodeProxy *const &proxy, int layer, const Vec2f &start, const Vec2f end) :
@@ -217,4 +228,12 @@ void Branch::refactor() {
     ru->refactor();
     rd->refactor();
     Node::refactor();
+}
+
+void Branch::clear() {
+    Node::clear();
+    lu->clear();
+    ld->clear();
+    ru->clear();
+    rd->clear();
 }

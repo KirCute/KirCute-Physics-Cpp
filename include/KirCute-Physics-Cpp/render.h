@@ -3,6 +3,7 @@
 
 #include "utils.h"
 #include <functional>
+#include <string>
 
 namespace kircute_physics {
     struct MouseMsg {
@@ -26,9 +27,13 @@ namespace kircute_physics {
 
     class Renderer {
     public:
+        bool closed{false};
+
         virtual ~Renderer() = default;
 
         virtual void initalizeWindow(const Rect &rect) = 0;
+
+        virtual void setWindowTitle(const std::string &title) = 0;
 
         virtual void update() {}
 
@@ -38,6 +43,8 @@ namespace kircute_physics {
 
         virtual void drawFillCircle(int pixel_x, int pixel_y, int radius,
                                     const Color &color, const Color &edge_color) = 0;
+
+        virtual void clearCircle(int pixel_x, int pixel_y, int radius) = 0;
 
         virtual void drawRectangle(int left_up_x, int left_up_y,
                                    int right_down_x, int right_down_y, const Color &color) = 0;
@@ -51,6 +58,10 @@ namespace kircute_physics {
 
         virtual void drawLine(int pixel_start_x, int pixel_start_y,
                               int pixel_end_x, int pixel_end_y, const Color &color) = 0;
+
+        virtual void clearRectangle(int left_up_x, int left_up_y, int right_down_x, int right_down_y) = 0;
+
+        virtual void writeline(const char *str, const Rect &rect, int x, int y, const Color &color = 0) = 0;
 
         virtual void setBackground(const Color &color) = 0;
 

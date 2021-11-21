@@ -55,6 +55,8 @@ namespace kircute_physics {
 
         virtual void refactor();
 
+        virtual void clear();
+
         friend NodeProxy;
 
     public:
@@ -105,6 +107,8 @@ namespace kircute_physics {
 
         void refactor() override;
 
+        void clear() override;
+
     public:
         static bool DrawBranchEdge;
     };
@@ -142,6 +146,8 @@ namespace kircute_physics {
         void render(Renderer *const &renderer) const { node->render(renderer); }
 
         void refactor() { node->refactor(); }
+
+        void clear() { node->clear(); }
     };
 
     class QuadtreeEntrance : public RigidbodyContainer, public Parent {
@@ -174,6 +180,8 @@ namespace kircute_physics {
         }
 
         void render(Renderer *const &renderer) const override { root->render(renderer); }
+
+        void clear() override;
     };
 }
 

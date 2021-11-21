@@ -26,7 +26,11 @@ namespace kircute_physics {
 
         Rigidbody* create(float mass, float radius, const Vec2f &pos, const Color &color = 0x7F7F7F);
 
+        void clear();
+
         void addField(const ForceField &field);
+
+        void clearField();
 
         Rect getRect() const { return objs->getRect(); }
 

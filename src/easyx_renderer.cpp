@@ -1,15 +1,21 @@
 #include "easyx_renderer.h"
 #include <conio.h>
+#include <iostream>
 
 using namespace kircute_physics;
 
 EasyxRenderer::~EasyxRenderer() {
     shutdown();
+    std::cout << "Deleted Renderer." << std::endl;
 }
 
 void EasyxRenderer::initalizeWindow(const Rect &rect) {
-    auto window = initgraph(rect.width, rect.height);
+    initgraph(rect.width, rect.height, EW_NOCLOSE);
     BeginBatchDraw();
+}
+
+void EasyxRenderer::setWindowTitle(const std::string &title) {
+    SetWindowText(GetHWnd(), title.c_str());
 }
 
 void EasyxRenderer::update() {
@@ -32,30 +38,44 @@ void EasyxRenderer::drawFillCircle(int pixel_x, int pixel_y, int radius, const C
     fillcircle(pixel_x, pixel_y, radius);
 }
 
-void
-EasyxRenderer::drawRectangle(int left_up_x, int left_up_y, int right_down_x, int right_down_y, const Color &color) {
+void EasyxRenderer::clearCircle(int pixel_x, int pixel_y, int radius) {
+    clearcircle(pixel_x, pixel_y, radius);
+}
+
+void EasyxRenderer::drawRectangle(int left_up_x, int left_up_y,
+                                  int right_down_x, int right_down_y, const Color &color) {
     setlinecolor(color.code);
     rectangle(left_up_x, left_up_y, right_down_x, right_down_y);
 }
 
-void
-EasyxRenderer::drawFillRectangle(int left_up_x, int left_up_y, int right_down_x, int right_down_y, const Color &color) {
+void EasyxRenderer::drawFillRectangle(int left_up_x, int left_up_y,
+                                      int right_down_x, int right_down_y, const Color &color) {
     setfillcolor(color.code);
     solidrectangle(left_up_x, left_up_y, right_down_x, right_down_y);
 }
 
-void
-EasyxRenderer::drawFillRectangle(int left_up_x, int left_up_y, int right_down_x, int right_down_y, const Color &color,
-                                 const Color &edge_color) {
+void EasyxRenderer::drawFillRectangle(int left_up_x, int left_up_y,
+                                      int right_down_x, int right_down_y,
+                                      const Color &color, const Color &edge_color) {
     setlinecolor(edge_color.code);
     setfillcolor(color.code);
     fillrectangle(left_up_x, left_up_y, right_down_x, right_down_y);
 }
 
-void
-EasyxRenderer::drawLine(int pixel_start_x, int pixel_start_y, int pixel_end_x, int pixel_end_y, const Color &color) {
+void EasyxRenderer::clearRectangle(int left_up_x, int left_up_y, int right_down_x, int right_down_y) {
+    clearrectangle(left_up_x, left_up_y, right_down_x, right_down_y);
+}
+
+void EasyxRenderer::drawLine(int pixel_start_x, int pixel_start_y,
+                             int pixel_end_x, int pixel_end_y, const Color &color) {
     setlinecolor(color.code);
     line(pixel_start_x, pixel_start_y, pixel_end_x, pixel_end_y);
+}
+
+void EasyxRenderer::writeline(const char *str, const Rect& rect, int x, int y, const Color &color) {
+    settextcolor(color.code);
+    RECT r = { x, y, rect.width + x, rect.height + y };
+    drawtext(str, &r, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 }
 
 void EasyxRenderer::setBackground(const Color &color) {
@@ -86,6 +106,7 @@ void EasyxRenderer::mouseHandle(const MouseEvent &evt) {
     msg.wheel = m.wheel;
     evt(msg);
     lastMouseMsg = m;
+    lastMouseMsg.wheel = 0;
 }
 
 bool EasyxRenderer::isClosed() {
@@ -93,7 +114,7 @@ bool EasyxRenderer::isClosed() {
         int input = _getch();
         return input == 'q' || input == 'Q' || input == 27;
     }
-    return false;
+    return closed;
 }
 
 void EasyxRenderer::shutdown() {

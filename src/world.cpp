@@ -9,9 +9,10 @@ World::World(RigidbodyContainer *const &container) :
         objs(container) {}
 
 World::~World() {
-    std::cout << Rigidbody::Count << ' ' << NodeProxy::Count << ' ' << Node::Count << std::endl;
+    //std::cout << Rigidbody::Count << ' ' << NodeProxy::Count << ' ' << Node::Count << std::endl;
     delete objs;
     std::cout << Rigidbody::Count << ' ' << NodeProxy::Count << ' ' << Node::Count << std::endl;
+    std::cout << "Deleted World." << std::endl;
 }
 
 void World::update() {
@@ -35,6 +36,14 @@ Rigidbody* World::create(float mass, float radius, const Vec2f &pos, const Color
     return rbody;
 }
 
+void World::clear() {
+    objs->clear();
+}
+
 void World::addField(const ForceField &field) {
     fields.push_back(field);
+}
+
+void World::clearField() {
+    fields.clear();
 }

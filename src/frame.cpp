@@ -1,4 +1,5 @@
 #include "frame.h"
+#include <iostream>
 
 using namespace kircute_physics;
 
@@ -14,6 +15,7 @@ Frame::Frame(Renderer *const &renderer, RigidbodyContainer *const &container, fl
 Frame::~Frame() {
     delete renderer;
     delete world;
+    std::cout << "Deleted Frame." << std::endl;
 }
 
 void Frame::start() {

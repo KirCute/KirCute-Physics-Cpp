@@ -62,8 +62,8 @@ void Rigidbody::solve(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB) {
 void Rigidbody::collideCheck(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB) {
     if (collide(rbodyA, rbodyB)) {
         auto _solve = true;
-        for (auto trigger : rbodyA->triggers) _solve = _solve && trigger(rbodyB);
-        for (auto trigger : rbodyB->triggers) _solve = _solve && trigger(rbodyA);
+        for (auto trigger : rbodyA->triggers) _solve &= trigger(rbodyB);
+        for (auto trigger : rbodyB->triggers) _solve &= trigger(rbodyA);
         if (_solve) solve(rbodyA, rbodyB);
     }
 }

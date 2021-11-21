@@ -6,13 +6,14 @@ using namespace kircute_physics;
 
 class Demo : public Frame {
 public:
-    explicit Demo() : Frame(new EasyxRenderer(), new VectorContainer(50.0f)) {}
+    Demo() : Frame(new EasyxRenderer(), new VectorContainer(50.0f)) {}
 
     void onInit() override {
         world->enableCollide = false;
         world->addField([&](const Rigidbody *const &rbody) {
             return Vec2f(.0f, (300.0f - rbody->getPosition().y) / 100.0f);
         });
+        renderer->setWindowTitle("KirCute-Physics-Cpp ²¨ÑùÀı - °´QÍË³ö");
     }
 
     void onRefresh() override {

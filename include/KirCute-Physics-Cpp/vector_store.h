@@ -24,6 +24,8 @@ namespace kircute_physics {
         void edgeCheck(float left, float top, float right, float bottom) override;
 
         void render(Renderer *const &renderer) const override;
+
+        void clear() override;
     };
 }
 

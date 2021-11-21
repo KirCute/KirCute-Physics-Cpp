@@ -1,4 +1,5 @@
 #include "vector_store.h"
+#include <iostream>
 
 using namespace kircute_physics;
 
@@ -9,6 +10,7 @@ VectorContainer::VectorContainer(float validRange) : RigidbodyContainer(validRan
 VectorContainer::~VectorContainer() {
     for (auto rbody : container) delete rbody;
     container.clear();
+    std::cout << "Deleted Store." << std::endl;
 }
 
 void VectorContainer::push_back(Rigidbody *const &rbody) {
@@ -46,4 +48,9 @@ void VectorContainer::edgeCheck(float left, float top, float right, float bottom
 
 void VectorContainer::render(Renderer *const &renderer) const {
     for (auto rbody : container) rbody->render(renderer);
+}
+
+void VectorContainer::clear() {
+    for (auto rbody : container) delete rbody;
+    container.clear();
 }
