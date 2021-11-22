@@ -98,7 +98,7 @@ public:
     }
 
     void onRender() override {
-        char text[20];
+        char text[100];
         renderer->drawFillRectangle(DISPLAYER_LEFT, RADIUS_DISPLAYER_TOP,
                                     DISPLAYER_RIGHT, RADIUS_DISPLAYER_BOTTOM, 0xFFFFFF, 0xAFAFAF);
         renderer->drawFillCircle((DISPLAYER_LEFT + DISPLAYER_RIGHT) / 2, BALL_Y, radius, 0x5FCF00);
@@ -108,7 +108,7 @@ public:
         gravity_b.setText(enableGravity ? "关闭重力" : "开启重力");
         gravity_b.render(mousePosX, mousePosY, renderer);
         close_b.render(mousePosX, mousePosY, renderer);
-        sprintf(text, "当前数量：%d", Rigidbody::Count);
+        sprintf(text, "C: %d FPS: %d", Rigidbody::Count, getFPS());
         renderer->writeline(text, Rect(DISPLAYER_RIGHT - DISPLAYER_LEFT, 25), DISPLAYER_LEFT, LEN_TEXT_TOP);
     }
 };

@@ -20,14 +20,29 @@ Frame::~Frame() {
 
 void Frame::start() {
     srand(time(NULL));
+    std::thread fpsCounter([&]() {
+        fpsCounterRunning = true;
+        auto last = clock();
+        while (fpsCounterRunning) {
+            while (clock() - last < 1000L && fpsCounterRunning);
+            if (fpsCounterRunning) {
+                last += 1000L;
+                last_fps = counting_fps;
+                counting_fps = 0;
+            }
+        }
+    });
     onInit();
     while (!shutdown) update();
+    fpsCounterRunning = false;
     onExit();
+    fpsCounter.join();
 }
 
 void Frame::update() {
     shutdown = shutdown || renderer->isClosed();
     if (clock() - lastUpdate < fpsTime) return;
+    counting_fps++;
     lastUpdate += fpsTime;
     onRefresh();
     world->update();

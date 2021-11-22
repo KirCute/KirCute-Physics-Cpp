@@ -3,10 +3,15 @@
 
 #include "world.h"
 #include <ctime>
+#include <thread>
 
 namespace kircute_physics {
     class Frame {
     public:
+        int counting_fps{0};
+        int last_fps{0};
+        bool fpsCounterRunning{false};
+
         explicit Frame(Renderer *const &renderer,
                        RigidbodyContainer *const &container,
                        float fps = 60.0f);
@@ -14,6 +19,8 @@ namespace kircute_physics {
         virtual ~Frame();
 
         void start();
+
+        int getFPS() const { return last_fps; }
 
     protected:
         bool shutdown = false;
