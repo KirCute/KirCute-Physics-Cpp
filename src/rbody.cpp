@@ -42,7 +42,12 @@ bool Rigidbody::collide(const Rigidbody *const &rbodyA, const Rigidbody *const &
 void Rigidbody::solve(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB) {
     auto direction = rbodyA->position - rbodyB->position;
     auto distance = direction.magnitude();
-    if (F_EQUALS_F(distance, .0f)) return;  // For safety
+    if (F_EQUALS_F(distance, .0f)) {
+        rbodyB->position.x += (rand() % 10) / 20.0f;
+        rbodyB->position.x += (rand() % 10) / 20.0f;
+        solve(rbodyA, rbodyB);
+        return;
+    }
     Vec2f ovdirA, keepA, ovdirB, keepB;
     rbodyA->velocity.decompose_v(direction, ovdirA, keepA);
     rbodyB->velocity.decompose_v(direction, ovdirB, keepB);
@@ -53,7 +58,7 @@ void Rigidbody::solve(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB) {
     rbodyA->velocity = keepA + vdirA;
     rbodyB->velocity = keepB + vdirB;
 
-    auto magnitude = (rbodyA->radius + rbodyB->radius - distance) / 4.0f + .01f;
+    auto magnitude = (rbodyA->radius + rbodyB->radius - distance) / 4.0f + .5f;
     auto normalize = direction.normalize() * magnitude;
     rbodyA->position += normalize;
     rbodyB->position -= normalize;

@@ -81,7 +81,7 @@ public:
     void onRefresh() override {
         renderer->mouseHandle([&](const MouseMsg &msg) {
             mousePosX = msg.x, mousePosY = msg.y;
-            if (msg.l_button_down) {
+            if (msg.l_button_down || msg.r_button) {
                 if (!clear_b.contains(msg.x, msg.y) && !gravity_b.contains(msg.x, msg.y) &&
                     !close_b.contains(msg.x, msg.y)) world->create(mass, radius, Vec2f(msg.x, msg.y));
             }
@@ -101,7 +101,7 @@ public:
         char text[20];
         renderer->drawFillRectangle(DISPLAYER_LEFT, RADIUS_DISPLAYER_TOP,
                                     DISPLAYER_RIGHT, RADIUS_DISPLAYER_BOTTOM, 0xFFFFFF, 0xAFAFAF);
-        renderer->drawFillCircle((DISPLAYER_LEFT + DISPLAYER_RIGHT) / 2, BALL_Y, radius, 0xFF);
+        renderer->drawFillCircle((DISPLAYER_LEFT + DISPLAYER_RIGHT) / 2, BALL_Y, radius, 0x5FCF00);
         sprintf(text, "r=%.1f  m=%.1f", radius, mass);
         renderer->writeline(text, Rect(DISPLAYER_RIGHT - DISPLAYER_LEFT, 25), DISPLAYER_LEFT, RADIUS_DISPLAYER_BOTTOM - 25);
         clear_b.render(mousePosX, mousePosY, renderer);

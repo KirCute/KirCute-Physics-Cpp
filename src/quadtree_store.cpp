@@ -214,11 +214,11 @@ void Branch::refactor() {
             ld->insert(*itr);
             itr = storage.erase(itr);
         } else if (ru->contains(*itr)) {
-            if (DrawBranchEdge) (*itr)->color.code = 0x7FFF7F;
+            if (DrawBranchEdge) (*itr)->color.code = 0x5FCF00;
             ru->insert(*itr);
             itr = storage.erase(itr);
         } else if (rd->contains(*itr)) {
-            if (DrawBranchEdge) (*itr)->color.code = 0x7FFFFF;
+            if (DrawBranchEdge) (*itr)->color.code = 0x1FAFFF;
             rd->insert(*itr);
             itr = storage.erase(itr);
         } else itr++;

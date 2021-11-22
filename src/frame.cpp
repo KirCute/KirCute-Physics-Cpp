@@ -19,6 +19,7 @@ Frame::~Frame() {
 }
 
 void Frame::start() {
+    srand(time(NULL));
     onInit();
     while (!shutdown) update();
     onExit();
