@@ -27,7 +27,7 @@ private:
     }
 
     void spawnHole(const Vec2f &pos) {
-        auto hole = world->create(1.0f, 16.0f, pos, 0);
+        auto hole = world->create(1.0f, 12.0f, pos, 0);
         hole->dictionary.insert(std::pair<std::string, std::string>("type", "hole"));
         hole->triggers.emplace_back([&](Rigidbody *const &rbody) {
             rbody->destroy();
@@ -53,8 +53,9 @@ public:
         renderer->setBackground(0x006F00);
         world->addField([&](const Rigidbody *const &rbody) {
             if (strcmp(rbody->dictionary.find("type")->second.c_str(), "hole") == 0) return Vec2f();
-            return rbody->getVelocity().magnitude() > 0.1f ? -rbody->getVelocity().normalize() * 0.1f
-                                                           : -rbody->getVelocity();
+            return rbody->getVelocity().magnitude() > 0.05f
+                       ? -rbody->getVelocity().normalize() * 0.05f
+                       : -rbody->getVelocity();
         });
         spawnHole(Vec2f(.0f, .0f));
         spawnHole(Vec2f(712.0f, .0f));
@@ -101,7 +102,7 @@ public:
 
     void onRender() override {
         if (moving) return;
-        auto dir = origin == white->getPosition() ? Vec2f(-1.0f, .0f) : (origin - white->getPosition()).normalize();
+        auto dir = origin == white->getPosition() ? Vec2f(-1.0f, .0f) : (white->getPosition() - origin).normalize();
         if (downed && origin != target) {
             dir = (target - origin) * 0.05f;
             dir = dir + dir.normalize();

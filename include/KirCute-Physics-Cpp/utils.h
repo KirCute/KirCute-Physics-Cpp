@@ -3,8 +3,8 @@
 
 #include <cmath>
 
-#define F_EQUALS_F(A, B) (fabsf(A - B) < 1e-4)
-#define F_EQUALS(A, B)   (fabs(A - B) < 1e-4)
+#define F_EQUALS_F(A, B) (fabsf((A) - (B)) < 1e-4)
+#define F_EQUALS(A, B)   (fabs((A) - (B)) < 1e-4)
 
 namespace kircute_physics {
     struct Rect {
