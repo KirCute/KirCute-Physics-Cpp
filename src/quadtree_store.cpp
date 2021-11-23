@@ -30,7 +30,8 @@ void QuadtreeEntrance::collide(Rigidbody *const &rbody) {
 }
 
 void QuadtreeEntrance::insert(Rigidbody *const &rbody) {
-    delete rbody;  // 能运行到此处说明这个刚体被root认为是出界的，说明这个刚体已离开有效范围，可直接删除
+    rbody->destroy();  // 能运行到此处说明这个刚体被root认为是出界的，说明这个刚体已离开有效范围，可直接删除
+    delete rbody;
 }
 
 void QuadtreeEntrance::update(const std::vector<ForceField> &field) {
@@ -114,7 +115,7 @@ void Node::render(Renderer *const &renderer) const {
 void Node::refactor() {
     auto itr = storage.begin();
     while (itr != storage.end()) {
-        if ((*itr)->destroy || !contains(*itr)) {
+        if ((*itr)->isDestroyed() || !contains(*itr)) {
             parent->insert(*itr);
             itr = storage.erase(itr);
         } else itr++;

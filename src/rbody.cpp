@@ -33,6 +33,12 @@ void Rigidbody::update() {
     position += velocity;
 }
 
+void Rigidbody::destroy() {
+    if (_destroy) return;
+    onDestroy(this);
+    _destroy = true;
+}
+
 bool Rigidbody::collide(const Rigidbody *const &rbodyA, const Rigidbody *const &rbodyB) {
     auto closedDistance = rbodyA->getRadius() + rbodyB->getRadius();
     auto distanceSqr = (rbodyA->getPosition() - rbodyB->getPosition()).magnitudeSqr();

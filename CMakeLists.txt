@@ -39,5 +39,6 @@ add_library(vector_store
 link_directories(lib/x64)
 link_libraries(kircute_physics easyx_renderer vector_store quadtree_store)
 
+add_executable(BilliardsDemo demo/BilliardsDemo.cpp)
 add_executable(QuadtreeDemo demo/QuadtreeDemo.cpp)
 add_executable(WaveDemo demo/WaveDemo.cpp)

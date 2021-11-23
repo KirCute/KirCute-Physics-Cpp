@@ -28,6 +28,7 @@ void VectorContainer::update(const std::vector<ForceField> &fields) {
         auto radius = (*itr)->getRadius();
         if (pos.x + radius < -validRange || pos.y + radius < -validRange ||
             pos.x - radius > (float) range.width + validRange || pos.y - radius > (float) range.height + validRange) {
+            (*itr)->destroy();
             delete (*itr);
             itr = container.erase(itr);
         } else itr++;

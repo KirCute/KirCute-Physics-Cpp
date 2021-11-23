@@ -3,7 +3,6 @@
 
 #include "world.h"
 #include <ctime>
-#include <thread>
 
 namespace kircute_physics {
     class Frame {

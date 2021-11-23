@@ -3,6 +3,7 @@
 
 #include "render.h"
 #include <vector>
+#include <map>
 
 namespace kircute_physics {
     class Rigidbody;
@@ -17,6 +18,7 @@ namespace kircute_physics {
         float radius;
         Vec2f position;
         Vec2f velocity;
+        bool _destroy{false};
 
         static bool collide(const Rigidbody *const &rbodyA, const Rigidbody *const &rbodyB);
 
@@ -25,13 +27,13 @@ namespace kircute_physics {
         static void rebound(Rigidbody *const &rbody, bool dir, float swift);
 
     public:
-        bool destroy{false};
         Vec2f force;
         Color color;
-        long long flag{0L};
+        std::map<std::string, std::string> dictionary;
         std::vector<CollideTrigger> triggers;
-        RigidbodyUpdate onRefresh = [&](Rigidbody *const &rbody) {};
-        RigidbodyRender onRender = [&](const Rigidbody *const &rbody, Renderer *const &render) {};
+        RigidbodyUpdate onRefresh = [&](Rigidbody *const &) {};
+        RigidbodyRender onRender = [&](const Rigidbody *const &, Renderer *const &) {};
+        RigidbodyUpdate onDestroy = [&](Rigidbody *const &) {};
 
         static bool DrawVelocity;
         static int Count;
@@ -44,9 +46,13 @@ namespace kircute_physics {
 
         void update();
 
+        void destroy();
+
         static void collideCheck(Rigidbody *const &rbodyA, Rigidbody * const&rbodyB);
 
         static void edgeCheck(Rigidbody *const &rbody, float left, float top, float right, float bottom);
+
+        void appendVelocity(const Vec2f &vel) { velocity += vel; };
 
         float getMass() const { return mass; }
 
@@ -55,6 +61,8 @@ namespace kircute_physics {
         Vec2f getPosition() const { return position; }
 
         Vec2f getVelocity() const { return velocity; }
+
+        bool isDestroyed() const { return _destroy; }
     };
 }
 
