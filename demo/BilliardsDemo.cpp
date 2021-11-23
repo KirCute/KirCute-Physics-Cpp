@@ -49,6 +49,7 @@ public:
     ~Demo() override = default;
 
     void onInit() override {
+        renderer->setWindowTitle("KirCute-Physics-Cpp 台球样例 - 按Q退出");
         renderer->setBackground(0x006F00);
         world->addField([&](const Rigidbody *const &rbody) {
             if (strcmp(rbody->dictionary.find("type")->second.c_str(), "hole") == 0) return Vec2f();
