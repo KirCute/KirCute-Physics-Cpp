@@ -14,7 +14,7 @@ namespace kircute_physics {
 
         void initalizeWindow(const Rect &rect) override;
 
-        void setWindowTitle(const std::string& title) override;
+        void setWindowTitle(const std::string &title) override;
 
         void update() override;
 
@@ -40,7 +40,7 @@ namespace kircute_physics {
         void drawLine(int pixel_start_x, int pixel_start_y,
                       int pixel_end_x, int pixel_end_y, const Color &color) override;
 
-        void writeline(const char *str, const Rect& rect, int x, int y, const Color &color = 0) override;
+        void writeline(const char *str, const Rect &rect, int x, int y, const Color &color = 0) override;
 
         void setBackground(const Color &color) override;
 

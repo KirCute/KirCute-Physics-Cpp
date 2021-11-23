@@ -49,8 +49,8 @@ void Rigidbody::solve(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB) {
     auto direction = rbodyA->position - rbodyB->position;
     auto distance = direction.magnitude();
     if (F_EQUALS_F(distance, .0f)) {
-        rbodyB->position.x += (rand() % 10) / 20.0f;
-        rbodyB->position.x += (rand() % 10) / 20.0f;
+        rbodyB->position.x += static_cast<float>(rand() % 10) / 20.0f;
+        rbodyB->position.x += static_cast<float>(rand() % 10) / 20.0f;
         solve(rbodyA, rbodyB);
         return;
     }
@@ -73,8 +73,8 @@ void Rigidbody::solve(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB) {
 void Rigidbody::collideCheck(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB) {
     if (collide(rbodyA, rbodyB)) {
         auto _solve = true;
-        for (auto trigger : rbodyA->triggers) _solve &= trigger(rbodyB);
-        for (auto trigger : rbodyB->triggers) _solve &= trigger(rbodyA);
+        for (const auto& trigger : rbodyA->triggers) _solve &= trigger(rbodyB);
+        for (const auto& trigger : rbodyB->triggers) _solve &= trigger(rbodyA);
         if (_solve) solve(rbodyA, rbodyB);
     }
 }

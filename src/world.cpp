@@ -30,7 +30,7 @@ void World::render(Renderer *const &renderer) const {
     objs->render(renderer);
 }
 
-Rigidbody* World::create(float mass, float radius, const Vec2f &pos, const Color &color) {
+Rigidbody *World::create(float mass, float radius, const Vec2f &pos, const Color &color) {
     auto rbody = new Rigidbody(mass, radius, pos, color);
     objs->push_back(rbody);
     return rbody;

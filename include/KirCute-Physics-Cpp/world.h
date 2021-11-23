@@ -24,7 +24,7 @@ namespace kircute_physics {
 
         void render(Renderer *const &renderer) const;
 
-        Rigidbody* create(float mass, float radius, const Vec2f &pos, const Color &color = 0x7F7F7F);
+        Rigidbody *create(float mass, float radius, const Vec2f &pos, const Color &color = 0x7F7F7F);
 
         void clear();
 

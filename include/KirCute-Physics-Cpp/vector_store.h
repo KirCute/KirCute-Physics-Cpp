@@ -13,7 +13,7 @@ namespace kircute_physics {
 
         explicit VectorContainer(float validRange);
 
-        ~VectorContainer();
+        ~VectorContainer() override;
 
         void push_back(Rigidbody *const &rbody) override;
 

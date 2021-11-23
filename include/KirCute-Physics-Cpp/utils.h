@@ -144,8 +144,8 @@ namespace kircute_physics {
         }
 
         void parse_int(unsigned int &r, unsigned int &g, unsigned int &b) const {
-            r = (code & 0xFF0000u) >> 16;
-            g = (code & 0xFF00u) >> 8;
+            r = (code & 0xFF0000u) >> 16u;
+            g = (code & 0xFF00u) >> 8u;
             b = (code & 0xFFu);
         }
 

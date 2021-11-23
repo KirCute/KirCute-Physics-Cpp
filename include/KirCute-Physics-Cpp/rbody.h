@@ -48,7 +48,7 @@ namespace kircute_physics {
 
         void destroy();
 
-        static void collideCheck(Rigidbody *const &rbodyA, Rigidbody * const&rbodyB);
+        static void collideCheck(Rigidbody *const &rbodyA, Rigidbody *const &rbodyB);
 
         static void edgeCheck(Rigidbody *const &rbody, float left, float top, float right, float bottom);
 

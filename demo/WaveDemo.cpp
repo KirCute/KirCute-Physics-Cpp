@@ -19,14 +19,17 @@ public:
     void onRefresh() override {
         renderer->mouseHandle([&](const MouseMsg &msg) {
             if (msg.l_button) {
-                world->create(1.0f, 2.0f, Vec2f(msg.x, msg.y), Color::FromHSV(msg.x / 800.0f * 360.0f, 1.0f, .75f));
+                world->create(1.0f, 2.0f, Vec2f((float) msg.x, (float) msg.y),
+                              Color::FromHSV((float) msg.x / 800.0f * 360.0f, 1.0f, .75f));
             }
         });
     }
 
     void onRender() override {
-        renderer->drawLine(0, world->getRect().height / 2, world->getRect().width, world->getRect().height / 2, 0xAFAFAF);
-        renderer->drawLine(world->getRect().width / 2, 0, world->getRect().width / 2, world->getRect().height, 0xAFAFAF);
+        renderer->drawLine(0, world->getRect().height / 2, world->getRect().width, world->getRect().height / 2,
+                           0xAFAFAF);
+        renderer->drawLine(world->getRect().width / 2, 0, world->getRect().width / 2, world->getRect().height,
+                           0xAFAFAF);
     }
 };
 

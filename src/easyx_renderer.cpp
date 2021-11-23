@@ -72,9 +72,9 @@ void EasyxRenderer::drawLine(int pixel_start_x, int pixel_start_y,
     line(pixel_start_x, pixel_start_y, pixel_end_x, pixel_end_y);
 }
 
-void EasyxRenderer::writeline(const char *str, const Rect& rect, int x, int y, const Color &color) {
+void EasyxRenderer::writeline(const char *str, const Rect &rect, int x, int y, const Color &color) {
     settextcolor(color.code);
-    RECT r = { x, y, rect.width + x, rect.height + y };
+    RECT r = {x, y, rect.width + x, rect.height + y};
     drawtext(str, &r, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 }
 

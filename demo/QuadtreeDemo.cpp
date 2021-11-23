@@ -1,4 +1,6 @@
-﻿#include "frame.h"
+﻿#include <utility>
+
+#include "frame.h"
 #include "quadtree_store.h"
 #include "easyx_renderer.h"
 
@@ -25,20 +27,22 @@ private:
     std::function<void()> action;
 
 public:
-    Button(int x, int y, Rect size, const std::string &text, std::function<void()> act = [&]() {}) :
-        x(x), y(y), size(size), text(text), action(act) {}
+    Button(int x, int y, Rect size, std::string text, std::function<void()> act = [&]() {}) :
+            x(x), y(y), size(size), text(std::move(text)), action(std::move(act)) {}
+
     ~Button() = default;
 
-    bool contains(int mx, int my) {
+    bool contains(int mx, int my) const {
         return x <= mx && x + size.width >= x && y <= my && y + size.height >= my;
     }
 
-    void setText(const std::string &text) { this->text = text; }
+    void setText(const std::string &t) { text = t; }
 
-    void setAction(std::function<void()> action) { this->action = action; }
+    void setAction(std::function<void()> a) { action = std::move(a); }
 
     void render(int mouse_x, int mouse_y, Renderer *const &renderer) {
-        renderer->drawFillRectangle(x, y, x + size.width, y + size.height, 0xFFFFFF, contains(mouse_x, mouse_y) ? 0 : 0xAFAFAF);
+        renderer->drawFillRectangle(x, y, x + size.width, y + size.height, 0xFFFFFF,
+                                    contains(mouse_x, mouse_y) ? 0 : 0xAFAFAF);
         renderer->writeline(text.c_str(), size, x, y);
     }
 
@@ -83,7 +87,8 @@ public:
             mousePosX = msg.x, mousePosY = msg.y;
             if (msg.l_button_down || msg.r_button) {
                 if (!clear_b.contains(msg.x, msg.y) && !gravity_b.contains(msg.x, msg.y) &&
-                    !close_b.contains(msg.x, msg.y)) world->create(mass, radius, Vec2f(msg.x, msg.y));
+                    !close_b.contains(msg.x, msg.y))
+                    world->create(mass, radius, Vec2f((float) msg.x, (float) msg.y));
             }
             clear_b.update(msg);
             gravity_b.update(msg);
@@ -101,9 +106,10 @@ public:
         char text[100];
         renderer->drawFillRectangle(DISPLAYER_LEFT, RADIUS_DISPLAYER_TOP,
                                     DISPLAYER_RIGHT, RADIUS_DISPLAYER_BOTTOM, 0xFFFFFF, 0xAFAFAF);
-        renderer->drawFillCircle((DISPLAYER_LEFT + DISPLAYER_RIGHT) / 2, BALL_Y, radius, 0x5FCF00);
+        renderer->drawFillCircle((DISPLAYER_LEFT + DISPLAYER_RIGHT) / 2, BALL_Y, (int) radius, 0x5FCF00);
         sprintf(text, "r=%.1f  m=%.1f", radius, mass);
-        renderer->writeline(text, Rect(DISPLAYER_RIGHT - DISPLAYER_LEFT, 25), DISPLAYER_LEFT, RADIUS_DISPLAYER_BOTTOM - 25);
+        renderer->writeline(text, Rect(DISPLAYER_RIGHT - DISPLAYER_LEFT, 25), DISPLAYER_LEFT,
+                            RADIUS_DISPLAYER_BOTTOM - 25);
         clear_b.render(mousePosX, mousePosY, renderer);
         gravity_b.setText(enableGravity ? "关闭重力" : "开启重力");
         gravity_b.render(mousePosX, mousePosY, renderer);
